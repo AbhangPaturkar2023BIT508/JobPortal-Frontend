@@ -4,7 +4,7 @@ import NavLinks from "./NavLinks";
 
 const Header = () => {
   return (
-    <div className="w-full bg-mine-shaft-950 h-20 flex justify-between text-white px-6 items-center">
+    <div className="w-full bg-mine-shaft-950 h-20 flex justify-between font-['poppins'] text-white px-6 items-center">
       <div className="flex gap-1 items-center text-bright-sun-400 ">
         <IconAnchor stroke={2.5} className="h-80 w-8" />
         <div className="text-3xl font-semibold">JobHook</div>
