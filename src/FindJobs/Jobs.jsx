@@ -10,7 +10,7 @@ const Jobs = () => {
         <div className="text-2xl font-semibold">Recomended Jods</div>
         <Sort />
       </div>
-      <div className="flex flex-wrap gap-5">
+      <div className="flex mt-10 flex-wrap gap-5 justify-between">
         {jobList.map((job, index) => (
           <JobCards key={index} {...job} />
         ))}

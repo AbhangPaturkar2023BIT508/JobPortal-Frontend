@@ -15,8 +15,8 @@ const JobCards = (props) => {
             />
           </div>
           <div>
-            <div>{props.jobTitle}</div>
-            <div className="text-xs text-mine-shaft-300 font-semibold">
+            <div className="font-semibold">{props.jobTitle}</div>
+            <div className="text-xs text-mine-shaft-300">
               {props.company} &#x2022; {props.applicants} Applicants
             </div>
           </div>
