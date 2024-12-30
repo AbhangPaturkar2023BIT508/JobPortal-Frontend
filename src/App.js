@@ -9,9 +9,13 @@ import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import FindTalents from "./Pages/FindTalents";
 import TalentProfile from "./FindTalent/TalentProfile";
+import PostJobPage from "./Pages/PostJobPage";
 
 function App() {
   const theme = createTheme({
+    focusRing: "never",
+    primaryColor: "brightSun",
+    primaryShade: 4,
     colors: {
       mineShaft: [
         "#f6f6f6",
@@ -50,6 +54,7 @@ function App() {
           <Route path="/find-jobs" element={<FindJobs />} />
           <Route path="/find-talent" element={<FindTalents />} />
           <Route path="/talent-profile" element={<TalentProfile />} />
+          <Route path="/post-job" element={<PostJobPage />} />
           <Route path="*" element={<Homepage />} />
         </Routes>
         <Footer />
