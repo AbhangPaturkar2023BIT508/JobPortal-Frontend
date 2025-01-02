@@ -2,6 +2,7 @@ import "./App.css";
 import { createTheme, MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "@mantine/carousel/styles.css";
+import "@mantine/tiptap/styles.css";
 import Homepage from "./Pages/Homepage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FindJobs from "./Pages/FindJobs";
@@ -10,6 +11,7 @@ import Footer from "./Footer/Footer";
 import FindTalents from "./Pages/FindTalents";
 import TalentProfile from "./FindTalent/TalentProfile";
 import PostJobPage from "./Pages/PostJobPage";
+import JobDescriptionPage from "./Pages/JobDescriptionPage";
 
 function App() {
   const theme = createTheme({
@@ -53,6 +55,7 @@ function App() {
         <Routes>
           <Route path="/find-jobs" element={<FindJobs />} />
           <Route path="/find-talent" element={<FindTalents />} />
+          <Route path="/jobs" element={<JobDescriptionPage />} />
           <Route path="/talent-profile" element={<TalentProfile />} />
           <Route path="/post-job" element={<PostJobPage />} />
           <Route path="*" element={<Homepage />} />
