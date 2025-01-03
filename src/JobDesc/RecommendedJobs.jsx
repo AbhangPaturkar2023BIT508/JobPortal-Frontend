@@ -1,5 +1,4 @@
 import React from "react";
-import Jobs from "../FindJobs/Jobs";
 import { jobList } from "../Data/JobsData";
 import JobCards from "../FindJobs/JobCards";
 

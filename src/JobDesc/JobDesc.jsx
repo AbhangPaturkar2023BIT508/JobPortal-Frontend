@@ -1,5 +1,5 @@
 import React from "react";
-import { IconBookmark, IconMapPin } from "@tabler/icons-react";
+import { IconBookmark } from "@tabler/icons-react";
 import { Button, Divider, ActionIcon } from "@mantine/core";
 import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
