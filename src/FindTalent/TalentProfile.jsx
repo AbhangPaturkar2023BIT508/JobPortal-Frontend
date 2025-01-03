@@ -18,7 +18,7 @@ const TalentProfile = () => {
           Back
         </Button>
       </Link>
-      <div className="flex gap-5">
+      <div className="flex gap-5 justify-around">
         <Profile {...profile} />
         <RecommendTalent />
       </div>

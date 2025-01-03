@@ -1,9 +1,14 @@
 import React from "react";
-import { IconBookmark, IconClockHour3 } from "@tabler/icons-react";
-import { Divider, Text } from "@mantine/core";
+import {
+  IconBookmark,
+  IconBookmarkFilled,
+  IconCalendarMonth,
+  IconClockHour3,
+} from "@tabler/icons-react";
+import { Button, ButtonGroup, Divider, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 
-const JobCards = (props) => {
+const CardJobHistory = (props) => {
   return (
     <Link
       to="/jobs"
@@ -25,7 +30,17 @@ const JobCards = (props) => {
             </div>
           </div>
         </div>
-        <IconBookmark className="text-mine-shaft-300 cursor-pointer" />
+        {props.saved ? (
+          <IconBookmarkFilled
+            className="text-bright-sun-400 cursor-pointer"
+            stroke={1.5}
+          />
+        ) : (
+          <IconBookmark
+            className="text-mine-shaft-300 cursor-pointer"
+            stroke={1.5}
+          />
+        )}
       </div>
       <div className="flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-mine-shaft-800 [&>div]:text-bright-sun-400 [&>div]:rounded-lg text-xs">
         <div>{props.experience}</div>
@@ -45,11 +60,39 @@ const JobCards = (props) => {
         </div>
         <div className="flex gap-1 text-xs text-mine-shaft-400 items-center">
           <IconClockHour3 className="h-5 w-5" stroke={1.5} />
-          Posted {props.postedDaysAgo} days ago
+          {props.applied || props.interviewing
+            ? "Applied "
+            : props.offered
+            ? "Interviewed "
+            : "Posted "}
+          {props.postedDaysAgo} days ago
         </div>
       </div>
+      {(props.offered || props.interviewing) && (
+        <Divider size="xs" color="mineShaft.7" />
+      )}
+      {props.offered && (
+        <div className="flex gap-2">
+          <Button color="brightSun.4" variant="outline" fullWidth>
+            Accept
+          </Button>
+          <Button color="brightSun.4" variant="light" fullWidth>
+            Reject
+          </Button>
+        </div>
+      )}
+      {props.interviewing && (
+        <div className="flex gap-1 text-sm items-center">
+          <IconCalendarMonth
+            className="text-bright-sun-400 w-5 h-5"
+            stroke={1.5}
+          />
+          Sun, 25 August &bull;
+          <span className="text-mine-shaft-400">10:00 AM</span>
+        </div>
+      )}
     </Link>
   );
 };
 
-export default JobCards;
+export default CardJobHistory;
