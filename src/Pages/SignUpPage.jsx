@@ -1,8 +1,7 @@
 import React from "react";
-import { Divider } from "@mantine/core";
 import { IconAnchor } from "@tabler/icons-react";
-import Signup from "../SignupLogin/Signup";
-import Login from "../SignupLogin/Login";
+import Signup from "../Components/SignupLogin/Signup";
+import Login from "../Components/SignupLogin/Login";
 import { useLocation } from "react-router-dom";
 
 const SignUpPage = () => {
@@ -11,13 +10,13 @@ const SignUpPage = () => {
     <div className="min-h[90vh] bg-mine-shaft-950 font-['poppins'] overflow-hidden">
       <div
         className={`w-[100vw] h-[100vh] transition-all ease-in-out duration-1000 flex [&>*]:flex-shrink-0 ${
-          location.pathname == "/signup" ? "-translate-x-1/2" : "translate-x-0"
+          location.pathname === "/signup" ? "-translate-x-1/2" : "translate-x-0"
         }`}
       >
         <Login />
         <div
           className={`w-1/2 h-full transition-all duration-100 ease-in-out ${
-            location.pathname == "/signup"
+            location.pathname === "/signup"
               ? "rounded-r-[200px]"
               : "rounded-l-[200px] "
           } bg-mine-shaft-900 flex items-center gap-5 justify-center flex-col`}
