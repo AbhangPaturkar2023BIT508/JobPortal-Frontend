@@ -1,12 +1,23 @@
-import { Button, PasswordInput, rem, TextInput } from "@mantine/core";
-import { IconAt, IconCheck, IconX, IconLock } from "@tabler/icons-react";
+import {
+  Button,
+  LoadingOverlay,
+  PasswordInput,
+  rem,
+  TextInput,
+} from "@mantine/core";
+import { IconAt, IconLock } from "@tabler/icons-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../Services/UserService";
 import { loginValidation } from "../../Services/FormValidation";
-import { notifications } from "@mantine/notifications";
 import { useDisclosure } from "@mantine/hooks";
 import ResetPassword from "./ResetPassword";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../Slices/UserSlice";
+import {
+  errorNotification,
+  successNotification,
+} from "../../Services/NotificationService";
 
 const form = {
   email: "",
@@ -14,6 +25,8 @@ const form = {
 };
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const [Loading, setLoading] = useState(false);
   const [data, setData] = useState(form);
   const [formError, setFormError] = useState(form);
   const [opened, { open, close }] = useDisclosure(false);
@@ -32,41 +45,37 @@ const Login = () => {
     }
     setFormError(newFormError);
     if (valid) {
+      setLoading(true);
       loginUser(data)
         .then((res) => {
-          console.log(res);
-          notifications.show({
-            title: "Login Successful",
-            message: "Redirecting to home page...",
-            withCloseButton: true,
-            icon: <IconCheck style={{ width: "90%", height: "90%" }} />,
-            color: "teal",
-            withBorder: true,
-            className: "!border-green-500",
-          });
+          // console.log(res);
+          successNotification(
+            "Login Successful",
+            "Redirecting to home page..."
+          );
           setTimeout(() => {
+            setLoading(false);
+            dispatch(setUser(res)); // Ensure `res` is valid
             navigate("/");
           }, 4000);
         })
         .catch((err) => {
-          // console.log(err.response.data);
-          notifications.show({
-            title: "Login Failed",
-            message: err.response.data.errorMessage,
-            withCloseButton: true,
-            icon: <IconX style={{ width: "90%", height: "90%" }} />,
-            color: "red",
-            withBorder: true,
-            className: "!border-red-500",
-          });
+          setLoading(false);
+          errorNotification("Login Failed", err.response.data.errorMessage);
         });
     }
   };
 
   return (
     <>
+      <LoadingOverlay
+        visible={Loading}
+        zIndex={1000}
+        overlayProps={{ radius: "sm", blur: 2 }}
+        loaderProps={{ color: "brightSun.4", type: "bars" }}
+      />
       <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
-        <div className="text-2xl font-semibold">Sign In</div>
+        <div className="text-2xl font-semibold">Login</div>
         <TextInput
           value={data.email}
           error={formError.email}
@@ -94,8 +103,13 @@ const Login = () => {
           label="Password"
           placeholder="Password"
         />
-        <Button onClick={handleSubmit} autoContrast variant="filled">
-          Sign in
+        <Button
+          loading={Loading}
+          onClick={handleSubmit}
+          autoContrast
+          variant="filled"
+        >
+          Login
         </Button>
         <div className="mx-auto">
           Don't Have an account?

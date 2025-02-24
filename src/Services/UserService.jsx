@@ -30,7 +30,7 @@ const sendOtp = async (email) => {
 };
 
 const verifyOtp = async (email, otp) => {
-  return axios 
+  return axios
     .get(`${base_url}verifyOtp/${email}/${otp}`)
     .then((result) => result.data)
     .catch((error) => {
