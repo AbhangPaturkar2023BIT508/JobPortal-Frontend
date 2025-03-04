@@ -9,7 +9,6 @@ import "@mantine/notifications/styles.css";
 import { Notifications } from "@mantine/notifications";
 import Store from "./Store";
 import { Provider } from "react-redux";
-import { getItem } from "./Services/LocalStorageService";
 import AppRoutes from "./Pages/AppRoutes";
 
 function App() {

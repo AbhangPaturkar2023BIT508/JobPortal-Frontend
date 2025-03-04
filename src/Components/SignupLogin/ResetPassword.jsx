@@ -14,6 +14,7 @@ import {
   successNotification,
 } from "../../Services/NotificationService";
 import { useInterval } from "@mantine/hooks";
+
 const ResetPassword = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -130,6 +131,7 @@ const ResetPassword = (props) => {
             className="mx-auto"
             size="md"
             gap="lg"
+            disabled={verified}
             type="number"
           />
         )}

@@ -20,7 +20,6 @@ import { Navigate } from "react-router-dom";
 const AppRoutes = () => {
   const user = useSelector((state) => state.user);
   return (
-    // const user = useSelector
     <BrowserRouter>
       <div className="relative">
         <Header />

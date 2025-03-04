@@ -18,20 +18,5 @@ const UserSlice = createSlice({
   },
 });
 
-// const UserSlice = createSlice({
-//   name: "user",
-//   initialState: getItem("user") || {}, // Ensure initial state is always defined
-//   reducers: {
-//     setUser: (state, action) => {
-//       setItem("user", action.payload);
-//       return action.payload; // Directly return new user data
-//     },
-//     removeUser: () => {
-//       removeItem("user");
-//       return {}; // Return an empty object instead of 'null'
-//     },
-//   },
-// });
-
 export const { setUser, removeUser } = UserSlice.actions;
 export default UserSlice.reducer;
