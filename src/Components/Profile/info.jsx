@@ -4,9 +4,10 @@ import { ActionIcon } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import {
   IconBriefcase,
-  IconDeviceFloppy,
+  IconCheck,
   IconMapPin,
   IconPencil,
+  IconX,
 } from "@tabler/icons-react";
 import SelectInput from "./SelectInput";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,9 +30,6 @@ const Info = () => {
       });
     } else {
       setEdit(false);
-      let updatedProfile = { ...profile, ...form.getValues() };
-      dispatch(changeProfile(updatedProfile));
-      successNotification("Success", "Profile Updated Successfully");
     }
   };
 
@@ -39,17 +37,36 @@ const Info = () => {
     mode: "controlled",
     initialValues: { jobTitle: "", company: "", location: "" },
   });
+
+  const handleSave = () => {
+    setEdit(false);
+    let updatedProfile = { ...profile, ...form.getValues() };
+    dispatch(changeProfile(updatedProfile));
+    successNotification("Success", "Profile Updated Successfully");
+  };
+
   return (
     <>
       <div className="text-3xl font-semibold flex justify-between">
         {user.name}
-        <ActionIcon size="lg" color="brightSun.4" variant="subtle">
-          {edit ? (
-            <IconDeviceFloppy onClick={handleClick} className="h-4/5 w-4/5" />
-          ) : (
-            <IconPencil onClick={handleClick} className="h-4/5 w-4/5" />
+        <div>
+          {edit && (
+            <ActionIcon size="lg" color="green.8" variant="subtle">
+              <IconCheck onClick={handleSave} className="h-4/5 w-4/5" />
+            </ActionIcon>
           )}
-        </ActionIcon>
+          <ActionIcon
+            size="lg"
+            color={edit ? "red.8" : "brightSun.4"}
+            variant="subtle"
+          >
+            {edit ? (
+              <IconX onClick={handleClick} className="h-4/5 w-4/5" />
+            ) : (
+              <IconPencil onClick={handleClick} className="h-4/5 w-4/5" />
+            )}
+          </ActionIcon>
+        </div>
       </div>
       {edit ? (
         <>

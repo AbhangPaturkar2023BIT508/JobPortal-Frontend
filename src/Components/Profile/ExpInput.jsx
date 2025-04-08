@@ -1,31 +1,95 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import fields from "../../Data/Profile";
 import SelectInput from "./SelectInput";
 import { Button, Checkbox, Textarea } from "@mantine/core";
 import { MonthPickerInput } from "@mantine/dates";
+import { isNotEmpty, useForm } from "@mantine/form";
+// import Profile from "./Profile";
+import { useDispatch, useSelector } from "react-redux";
+import { changeProfile } from "../../Slices/ProfileSlice";
+import { successNotification } from "../../Services/NotificationService";
 
 const ExpInput = (props) => {
   const select = fields;
-  const [desc, setDesc] = useState(
-    "As a Software Engineer at Google, I am responsible for designing, developing, and maintaining scalable software solutions that enhance user experience and improve operational efficiency. My role involves collaborating with cross-functional teams to define project requirements, develop technical specifications, and implement robust applications using cutting-edge technologies. I actively participate in code reviews, ensuring adherence to best practices and coding standards, and contribute to the continuous improvement of the development process."
-  );
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [checked, setChecked] = useState(false);
+  const profile = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!props.add) {
+      form.setValues({
+        title: props.title,
+        company: props.company,
+        location: props.location,
+        description: props.description,
+        startsDate: new Date(props.startDate),
+        endDate: new Date(props.endDate),
+        working: props.working,
+      });
+    }
+  }, []);
+  const form = useForm({
+    mode: "controlled",
+    validateInputOnChange: true,
+    initialValues: {
+      title: "",
+      company: "",
+      location: "",
+      description: "",
+      startsDate: new Date(),
+      endDate: new Date(),
+      working: false,
+    },
+    validate: {
+      title: isNotEmpty("Title is required"),
+      company: isNotEmpty("Company is required"),
+      location: isNotEmpty("Location is requried"),
+      description: isNotEmpty("Description is required"),
+    },
+  });
+
+  const handleSave = () => {
+    form.validate();
+    if (!form.isValid()) return;
+    // console.log(profile.experience);
+    let exp = [...profile.experience];
+    const adjustDate = (date) => {
+      let d = new Date(date);
+      d.setHours(12, 0, 0, 0); // Set time to noon before conversion
+      return d.toISOString();
+    };
+    if (props.add) {
+      exp.push(form.getValues());
+      exp[exp.length - 1].startDate = adjustDate(
+        exp[exp.length - 1].startsDate
+      );
+      exp[exp.length - 1].endDate = adjustDate(exp[exp.length - 1].endDate);
+    } else {
+      exp[props.index] = form.getValues();
+
+      exp[props.index].startDate = adjustDate(exp[props.index].startsDate);
+      exp[props.index].endDate = adjustDate(exp[props.index].endDate);
+    }
+    let updatedProfile = { ...profile, experience: exp };
+    props.setEdit(false);
+    dispatch(changeProfile(updatedProfile));
+    successNotification(
+      "Success",
+      `Experience ${props.add ? "Added" : "Updated"} Successfully`
+    );
+  };
   return (
     <div className="flex flex-col gap-3">
       <div className="text-lg font-semibold">
         {props.add ? "Add " : "Edit "}Experience
       </div>
       <div className="flex gap-10 [&>*]:w-1/2">
-        <SelectInput {...select[0]} />
-        <SelectInput {...select[1]} />
+        <SelectInput form={form} name="title" {...select[0]} />
+        <SelectInput form={form} name="company" {...select[1]} />
       </div>
-      <SelectInput {...select[2]} />
+      <SelectInput form={form} name="location" {...select[2]} />
       <Textarea
+        {...form.getInputProps("description")}
         withAsterisk
-        value={desc}
-        onChange={(event) => setDesc(event.currentTarget.value)}
         autosize
         minRows={3}
         label="Summary"
@@ -33,36 +97,30 @@ const ExpInput = (props) => {
       />
       <div className="flex gap-10 [&>*]:w-1/2">
         <MonthPickerInput
+          {...form.getInputProps("startsDate")}
           withAsterisk
-          maxDate={endDate || undefined}
+          maxDate={form.getValues().endDate || undefined}
           label="Start Date"
           placeholder="Pick Date"
-          value={startDate}
-          onChange={setStartDate}
         />
         <MonthPickerInput
-          disabled={checked}
+          {...form.getInputProps("endDate")}
+          disabled={form.getValues().working}
           withAsterisk
-          minDate={startDate || undefined}
+          minDate={form.getValues().startsDate || undefined}
           maxDate={new Date()}
           label="End Date"
           placeholder="Pick Date"
-          value={endDate}
-          onChange={setEndDate}
         />
       </div>
       <Checkbox
-        checked={checked}
-        onChange={(event) => setChecked(event.currentTarget.checked)}
+        checked={form.getValues().working}
+        onChange={(e) => form.setFieldValue("working", e.currentTarget.checked)}
         autoContrast
         label="Currently working here"
       />
       <div className="flex gap-5">
-        <Button
-          onClick={() => props.setEdit(false)}
-          color="brightSun.4"
-          variant="outline"
-        >
+        <Button onClick={handleSave} color="green.8" variant="light">
           Save
         </Button>
         <Button
