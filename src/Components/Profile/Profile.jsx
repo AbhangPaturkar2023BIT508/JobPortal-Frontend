@@ -9,8 +9,9 @@ import Experience from "./Experience";
 import Certificate from "./Certificate";
 import { useHover } from "@mantine/hooks";
 import { IconEdit } from "@tabler/icons-react";
-import { successNotification } from "../../Services/NotificationService";
+import { successNotification, errorNotification } from "../../Services/NotificationService";
 import { updateProfile } from "../../Services/ProfileService";
+import { getBase64 } from "../../Services/Utilities";
 
 const Profile = () => {
   const profile = useSelector((state) => state.profile);
@@ -33,18 +34,10 @@ const Profile = () => {
       successNotification("Success", "Profile Picture Updated Successfully");
     } catch (err) {
       console.error("Failed to update profile picture:", err);
-      successNotification("Error", "Failed to update profile picture"); // You can use errorNotification() if defined
+      errorNotification("Error", "Failed to update profile picture");
     }
   };
 
-  const getBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  };
   return (
     <div className="w-4/5 mx-auto">
       <div className="relative">
