@@ -3,8 +3,12 @@ import { IconMapPin, IconBriefcase } from "@tabler/icons-react";
 import { Button, Divider } from "@mantine/core";
 import ExpCard from "./ExpCard";
 import CertiCard from "./CertiCard";
+import { useParams } from "react-router-dom";
 
 const Profile = (props) => {
+  const { id } = useParams();
+  console.log(id);
+  console.log(props);
   return (
     <div className="w-2/3">
       <div className="relative">

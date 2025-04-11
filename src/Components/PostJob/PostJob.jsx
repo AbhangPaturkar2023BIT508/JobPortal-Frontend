@@ -10,8 +10,10 @@ import {
   errorNotification,
   successNotification,
 } from "../../Services/NotificationService";
+import { useSelector } from "react-redux";
 
 const PostJob = () => {
+  const user = useSelector((state) => state.user);
   const Navigate = useNavigate();
   const select = fields;
   const form = useForm({
@@ -44,10 +46,22 @@ const PostJob = () => {
   const handlePost = () => {
     form.validate();
     if (!form.isValid()) return;
-    postJob(form.getValues())
+    postJob({ ...form.getValues(), postedBy: user.id, jobStatus: "ACTIVE" })
       .then((res) => {
         successNotification("Success", "Job Posted Successfully");
-        Navigate("/posted-job");
+        Navigate(`/posted-job/${res.id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+        errorNotification("Error", "Error while posting job");
+      });
+  };
+
+  const handleDraft = () => {
+    postJob({ ...form.getValues(), postedBy: user.id, jobStatus: "DRAFT" })
+      .then((res) => {
+        successNotification("Success", "Job Drafted Successfully");
+        Navigate(`/posted-job/${res.id}`);
       })
       .catch((err) => {
         console.log(err);
@@ -107,7 +121,7 @@ const PostJob = () => {
           <Button color="brightSun.4" variant="light" onClick={handlePost}>
             Publish Job
           </Button>
-          <Button color="brightSun.4" variant="outline">
+          <Button color="brightSun.4" variant="outline" onClick={handleDraft}>
             Save as Draft
           </Button>
         </div>

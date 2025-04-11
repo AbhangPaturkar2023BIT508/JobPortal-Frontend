@@ -38,4 +38,29 @@ const applyJob = async (id, applicant) => {
     });
 };
 
-export { postJob, getAllJobs, getJob, applyJob };
+const getJobPostedBy = async (id) => {
+  return axios
+    .get(`${base_url}postedBy/${id}`)
+    .then((result) => result.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+const changeApplicationStatus = async (application) => {
+  return axios
+    .post(`${base_url}changeApplicationStatus`, application)
+    .then((result) => result.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export {
+  postJob,
+  getAllJobs,
+  getJob,
+  applyJob,
+  getJobPostedBy,
+  changeApplicationStatus,
+};
