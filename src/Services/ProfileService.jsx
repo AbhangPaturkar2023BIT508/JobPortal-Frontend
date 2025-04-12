@@ -20,4 +20,13 @@ const updateProfile = async (profile) => {
     });
 };
 
-export { getProfile, updateProfile };
+const getAllProfiles = () => {
+  return axios
+    .get(`${base_url}getAll`)
+    .then((result) => result.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export { getProfile, updateProfile, getAllProfiles };

@@ -7,6 +7,11 @@ import { card } from "../../Data/JobDescData";
 import { timeAgo } from "../../Services/Utilities";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProfile } from "../../Slices/ProfileSlice";
+import { postJob } from "../../Services/JobService";
+import {
+  errorNotification,
+  successNotification,
+} from "../../Services/NotificationService";
 
 const JobDesc = (props) => {
   const [applied, setApplied] = useState(false);
@@ -17,7 +22,7 @@ const JobDesc = (props) => {
     console.log(profile.savedJobs);
     let savedJobs = profile.savedJobs || [];
     if (savedJobs?.includes(props.id)) {
-      savedJobs = savedJobs?.filter((id) => id != props.id);
+      savedJobs = savedJobs?.filter((id) => id !== props.id);
     } else {
       savedJobs = [...savedJobs, props.id];
     }
@@ -33,6 +38,15 @@ const JobDesc = (props) => {
       setApplied(true);
     } else setApplied(false);
   }, [props]);
+  const handleClose = () => {
+    postJob({ ...props, jobStatus: "CLOSED" })
+      .then((res) => {
+        successNotification("Success", "Job Closed Successfully");
+      })
+      .catch((err) => {
+        errorNotification("Error", err.response?.data?.errorMessage);
+      });
+  };
   return (
     <div className="w-2/3">
       <div className="flex justify-between">
@@ -56,18 +70,23 @@ const JobDesc = (props) => {
           {(props.edit || !applied) && (
             <Link to={`/apply-job/${props.id}`}>
               <Button size="sm" color="brightSun.4" variant="light">
-                {props.edit ? "Edit" : "Apply"}
+                {props.closed ? "Reopen" : props.edit ? "Edit" : "Apply"}
               </Button>
             </Link>
           )}
-          {applied && (
+          {!props.edit && applied && (
             <Button color="green.8" size="sm" variant="light">
               Applied
             </Button>
           )}
-          {props.edit ? (
-            <Button size="sm" color="red.5" variant="outline">
-              Delete
+          {props.edit && !props.closed ? (
+            <Button
+              size="sm"
+              color="red.5"
+              variant="outline"
+              onClick={handleClose}
+            >
+              Close
             </Button>
           ) : profile.savedJobs?.includes(props.id) ? (
             <IconBookmarkFilled

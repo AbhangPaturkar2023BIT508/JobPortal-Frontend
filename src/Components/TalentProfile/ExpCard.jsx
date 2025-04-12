@@ -1,4 +1,5 @@
 import React from "react";
+import { formatDate } from "../../Services/Utilities";
 
 const ExpCard = (props) => {
   return (
@@ -15,12 +16,12 @@ const ExpCard = (props) => {
           <div className="flex flex-col">
             <div className="font-semibold">{props.title}</div>
             <div className="text-sm text-mine-shaft-300">
-              {props.compnay} &#x2022; {props.location}
+              {props.company} &#x2022; {props.location}
             </div>
           </div>
         </div>
         <div className="text-sm text-mine-shaft-300">
-          {props.startDate} - {props.endDate}
+          {formatDate(props.startDate)} - {formatDate(props.endDate)}
         </div>
       </div>
       <div className="text-sm text-mine-shaft-300 test-justify">

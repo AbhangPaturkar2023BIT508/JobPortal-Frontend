@@ -5,7 +5,6 @@ import FindJobs from "./FindJobs";
 import Header from "../Components/Header/Header";
 import Footer from "../Components/Footer/Footer";
 import FindTalents from "./FindTalents";
-import TalentProfile from "../Components/FindTalent/TalentProfile";
 import PostJobPage from "./PostJobPage";
 import JobDescriptionPage from "./JobDescriptionPage";
 import ApplyJobPage from "./ApplyJobPage";
@@ -16,6 +15,7 @@ import SignUpPage from "./SignUpPage";
 import ProfilePage from "./ProfilePage";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import TalentProfilePage from "./TalentProfilePage";
 
 const AppRoutes = () => {
   const user = useSelector((state) => state.user);
@@ -29,7 +29,7 @@ const AppRoutes = () => {
           <Route path="/company/:name" element={<CompanyPage />} />
           <Route path="/jobs/:id" element={<JobDescriptionPage />} />
           <Route path="/apply-job/:id" element={<ApplyJobPage />} />
-          <Route path="/talent-profile/:id" element={<TalentProfile />} />
+          <Route path="/talent-profile/:id" element={<TalentProfilePage />} />
           <Route path="/post-job" element={<PostJobPage />} />
           <Route path="/posted-job/:id" element={<PostedJobPage />} />
           <Route path="/job-history" element={<JobHistoryPage />} />

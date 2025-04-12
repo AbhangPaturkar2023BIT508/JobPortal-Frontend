@@ -1,7 +1,6 @@
 import React from "react";
 import { Badge, Tabs } from "@mantine/core";
 import JobDesc from "../JobDesc/JobDesc";
-import { talents } from "../../Data/TalentData";
 import TalentCard from "../FindTalent/TalentCard";
 const PostedJobDesc = (props) => {
   return (
@@ -28,12 +27,16 @@ const PostedJobDesc = (props) => {
               </Tabs.List>
 
               <Tabs.Panel value="overview" className="[&>div]:w-full">
-                <JobDesc edit />
+                <JobDesc
+                  {...props}
+                  edit={true}
+                  closed={props.jobStatus === "CLOSED"}
+                />
               </Tabs.Panel>
               <Tabs.Panel value="applicants">
                 <div className="flex mt-10 flex-wrap gap-5 justify-around">
                   {props.applicants
-                    ?.filter((x) => x.applicationStatus == "APPLIED")
+                    ?.filter((x) => x.applicationStatus === "APPLIED")
                     .map((talent, index) => (
                       <TalentCard key={index} {...talent} posted />
                     ))}
@@ -42,7 +45,7 @@ const PostedJobDesc = (props) => {
               <Tabs.Panel value="invited">
                 <div className="flex mt-10 flex-wrap gap-5 justify-around">
                   {props.applicants
-                    ?.filter((x) => x.applicationStatus == "INTERVIEWING")
+                    ?.filter((x) => x.applicationStatus === "INTERVIEWING")
                     .map((talent, index) => (
                       <TalentCard key={index} {...talent} invited />
                     ))}
@@ -51,7 +54,7 @@ const PostedJobDesc = (props) => {
               <Tabs.Panel value="offered">
                 <div className="flex mt-10 flex-wrap gap-5 justify-around">
                   {props.applicants
-                    ?.filter((x) => x.applicationStatus == "OFFERED")
+                    ?.filter((x) => x.applicationStatus === "OFFERED")
                     .map((talent, index) => (
                       <TalentCard key={index} {...talent} offered />
                     ))}
@@ -60,7 +63,7 @@ const PostedJobDesc = (props) => {
               <Tabs.Panel value="rejected">
                 <div className="flex mt-10 flex-wrap gap-5 justify-around">
                   {props.applicants
-                    ?.filter((x) => x.applicationStatus == "REJECTED")
+                    ?.filter((x) => x.applicationStatus === "REJECTED")
                     .map((talent, index) => (
                       <TalentCard key={index} {...talent} rejected />
                     ))}

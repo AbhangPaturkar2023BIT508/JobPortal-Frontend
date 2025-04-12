@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import { Tabs } from "@mantine/core";
-import { activeJobs, drafts } from "../../Data/PostedJob";
 import PostedJobCard from "./PostedJobCard";
 
 const PostedJob = (props) => {
   const [activeTab, setActiveTab] = React.useState("ACTIVE");
   useEffect(() => {
-    console.log("Received job prop:", props.job);
-    console.log("Received jobList prop:", props.jobList);
     setActiveTab(props.job?.jobStatus || "ACTIVE");
   }, [props.job]);
   return (
@@ -24,20 +21,31 @@ const PostedJob = (props) => {
             <Tabs.Tab value="ACTIVE">
               Active [
               {
-                props.jobList?.filter((job) => job?.jobStatus == "ACTIVE")
+                props.jobList?.filter((job) => job?.jobStatus === "ACTIVE")
                   .length
               }
               ]
             </Tabs.Tab>
             <Tabs.Tab value="DRAFT">
               Drafts [
-              {props.jobList?.filter((job) => job?.jobStatus == "DRAFT").length}
+              {
+                props.jobList?.filter((job) => job?.jobStatus === "DRAFT")
+                  .length
+              }
+              ]
+            </Tabs.Tab>
+            <Tabs.Tab value="CLOSED">
+              Closed [
+              {
+                props.jobList?.filter((job) => job?.jobStatus === "CLOSED")
+                  .length
+              }
               ]
             </Tabs.Tab>
           </Tabs.List>
           <div className="flex flex-col gap-5 mt-5">
             {props.jobList
-              ?.filter((job) => job?.jobStatus == activeTab)
+              ?.filter((job) => job?.jobStatus === activeTab)
               .map((item, index) => (
                 <PostedJobCard key={index} {...item} />
               ))}

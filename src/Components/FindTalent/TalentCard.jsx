@@ -46,15 +46,12 @@ const TalentCard = (props) => {
       id,
       applicantId: profile?.id,
       applicationStatus: status,
-      // interviewTime: date,
+      interviewTime: date,
     };
     if (status === "INTERVIEWING") {
       const [hours, minutes] = time.split(":").map(Number);
       date?.setHours(hours, minutes);
-      interview = {
-        interview,
-        interviewTime: date,
-      };
+      interview.interviewTime = date;
     }
     changeApplicationStatus(interview)
       .then((res) => {
@@ -264,7 +261,7 @@ const TalentCard = (props) => {
                 variant="light"
                 autoContrast
               >
-                View
+                {profile?.name} Resume
               </Button>
             </span>
           </div>
