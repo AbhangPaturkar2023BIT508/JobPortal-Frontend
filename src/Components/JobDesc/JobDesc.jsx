@@ -18,6 +18,7 @@ const JobDesc = (props) => {
   const profile = useSelector((state) => state.profile);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
   const handleSaveJob = () => {
     console.log(profile.savedJobs);
     let savedJobs = profile.savedJobs || [];
@@ -38,6 +39,7 @@ const JobDesc = (props) => {
       setApplied(true);
     } else setApplied(false);
   }, [props]);
+
   const handleClose = () => {
     postJob({ ...props, jobStatus: "CLOSED" })
       .then((res) => {
@@ -68,7 +70,11 @@ const JobDesc = (props) => {
         </div>
         <div className="flex flex-col gap-2 items-center">
           {(props.edit || !applied) && (
-            <Link to={`/apply-job/${props.id}`}>
+            <Link
+              to={
+                props.edit ? `/post-job/${props.id}` : `/apply-job/${props.id}`
+              }
+            >
               <Button size="sm" color="brightSun.4" variant="light">
                 {props.closed ? "Reopen" : props.edit ? "Edit" : "Apply"}
               </Button>

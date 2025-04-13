@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Divider } from "@mantine/core";
 import PostedJob from "../Components/PostedJob/PostedJob";
 import PostedJobDesc from "../Components/PostedJob/PostedJobDesc";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getJobPostedBy } from "../Services/JobService";
 
@@ -19,8 +19,9 @@ const PostedJobPage = () => {
     getJobPostedBy(user.id)
       .then((res) => {
         setJobList(res);
-        if (res && res.length > 0 && Number(id) == 0)
-          Navigate(`/posted-job/${res[0].id}`);
+        const activeJobs = res.filter((job) => job.jobStatus === "ACTIVE");
+        if (activeJobs.length > 0 && Number(id) === 0)
+          Navigate(`/posted-job/${activeJobs[0].id}`);
         const selectedJob = res.find(
           (item) => item.id.toString() === id.toString()
         );

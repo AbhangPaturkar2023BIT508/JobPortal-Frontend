@@ -38,7 +38,7 @@ const TalentCard = (props) => {
         .catch((err) => {
           console.log(err);
         });
-    // else setProfile(props);
+    else setProfile(props);
   }, [props]);
 
   const handleOffer = (status) => {
@@ -116,8 +116,8 @@ const TalentCard = (props) => {
         </div>
       ) : (
         <div className="flex justify-between">
-          <div className="font-semibold text-mine-shaft-200">
-            &#8377; 23 LPA
+          <div className="font-semibold text-mine-shaft-300">
+            Exp. {profile?.totalExp ? profile.totalExp : 1} Years
           </div>
           <div className="flex gap-1 text-xs text-mine-shaft-400 items-center">
             <IconMapPin className="h-5 w-5" stroke={1.5} />

@@ -12,7 +12,7 @@ const SelectInput = (props) => {
       setValue(props.form.getInputProps(props.name).value);
       setSearch(props.form.getInputProps(props.name).value);
     }
-  }, [props.options]); // Update when props.options changes
+  }, [props]); // Update when props.options changes
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
