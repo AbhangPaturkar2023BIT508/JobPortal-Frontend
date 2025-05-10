@@ -44,11 +44,13 @@ const JobDesc = (props) => {
     postJob({ ...props, jobStatus: "CLOSED" })
       .then((res) => {
         successNotification("Success", "Job Closed Successfully");
+        props.onJobUpdate?.({ ...props, jobStatus: "CLOSED" }); // 🔁 trigger update in parent
       })
       .catch((err) => {
         errorNotification("Error", err.response?.data?.errorMessage);
       });
   };
+
   return (
     <div className="w-2/3">
       <div className="flex justify-between">

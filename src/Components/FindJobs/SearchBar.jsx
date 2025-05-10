@@ -8,12 +8,12 @@ const SearchBar = () => {
   return (
     <div className="flex px-5 py-8">
       {dropdownData.map((item, index) => (
-        <>
+        <React.Fragment key={index}>
           <div key={index} className="w-1/5">
             <MultiInput {...item} />
           </div>
           <Divider mr="xs" size="xs" orientation="vertical" />
-        </>
+        </React.Fragment>
       ))}
       <div className="w-1/5 [&_.mantine-Slider-label]:!translate-y-10">
         <div className="flex text-sm justify-between">

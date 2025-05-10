@@ -61,7 +61,8 @@ const PostedJobDesc = (props) => {
                 <JobDesc
                   {...props}
                   edit={true}
-                  closed={props.jobStatus === "CLOSED"}
+                  closed={props.jobStatus === 
+                  "CLOSED"}
                 />
               </Tabs.Panel>
               <Tabs.Panel value="applicants">

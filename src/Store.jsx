@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./Slices/UserSlice";
-import ProfileSlice from "./Slices/ProfileSlice";
+import ProfileReducer from "./Slices/ProfileSlice";
+import filterReducer from "./Slices/FilterSlice";
 export default configureStore({
   reducer: {
     user: userReducer,
-    profile: ProfileSlice,
+    profile: ProfileReducer,
+    filter: filterReducer,
   },
 });

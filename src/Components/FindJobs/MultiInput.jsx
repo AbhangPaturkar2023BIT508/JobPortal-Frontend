@@ -10,9 +10,12 @@ import {
   useCombobox,
 } from "@mantine/core";
 import { IconSelector } from "@tabler/icons-react";
-
+import { useDispatch } from "react-redux";
+import { updateFilter } from "../../Slices/FilterSlice";
+import { current } from "@reduxjs/toolkit";
 
 const MultiInput = (props) => {
+  const dispatch = useDispatch();
   useEffect(() => {
     setData(props.options);
   }, []);
@@ -33,7 +36,18 @@ const MultiInput = (props) => {
     if (val === "$create") {
       setData((current) => [...current, search]);
       setValue((current) => [...current, search]);
+      console.log("search", search);
+      console.log("value", value);
+      console.log("current", current);
+      dispatch(updateFilter({ [props.title]: [...value, search] }));
     } else {
+      dispatch(
+        updateFilter({
+          [props.title]: value.includes(val)
+            ? value.filter((v) => v !== val)
+            : [...value, val],
+        })
+      );
       setValue((current) =>
         current.includes(val)
           ? current.filter((v) => v !== val)
@@ -42,8 +56,10 @@ const MultiInput = (props) => {
     }
   };
 
-  const handleValueRemove = (val) =>
+  const handleValueRemove = (val) => {
     setValue((current) => current.filter((v) => v !== val));
+    dispatch(updateFilter({ [props.title]: value.filter((v) => v !== val) }));
+  };
 
   const values = value.slice(0, 1).map((item) => (
     <Pill key={item} withRemoveButton onRemove={() => handleValueRemove(item)}>

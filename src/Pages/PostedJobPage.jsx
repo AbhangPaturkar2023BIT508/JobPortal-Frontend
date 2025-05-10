@@ -12,6 +12,14 @@ const PostedJobPage = () => {
   const [jobList, setJobList] = useState([]);
   const [job, setJob] = useState(null);
   const Navigate = useNavigate();
+
+  const handleJobUpdate = (updatedJob) => {
+    setJobList((prevList) =>
+      prevList.map((job) => (job.id === updatedJob.id ? updatedJob : job))
+    );
+    setJob(updatedJob);
+  };
+
   useEffect(() => {}, [job]);
 
   useEffect(() => {
@@ -36,7 +44,7 @@ const PostedJobPage = () => {
       <Divider size="xs" />
       <div className="flex gap-5">
         <PostedJob job={job} jobList={jobList} />
-        <PostedJobDesc {...job} />
+        <PostedJobDesc {...job} onJobUpdate={handleJobUpdate} />
       </div>
     </div>
   );
