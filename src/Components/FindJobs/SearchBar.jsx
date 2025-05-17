@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import MultiInput from "./MultiInput";
 import { dropdownData } from "../../Data/JobsData";
 import { Divider, RangeSlider } from "@mantine/core";
+import { useDispatch } from "react-redux";
+import { updateFilter } from "../../Slices/FilterSlice";
 
 const SearchBar = () => {
-  const [value, setValue] = useState([1, 100]);
+  const dispatch = useDispatch();
+  const [value, setValue] = useState([0, 300]);
+
+  const handleChange = (event) => {
+    dispatch(updateFilter({ salary: event }));
+  };
   return (
     <div className="flex px-5 py-8">
       {dropdownData.map((item, index) => (
@@ -23,6 +30,9 @@ const SearchBar = () => {
           </div>
         </div>
         <RangeSlider
+          max={300}
+          min={1}
+          minRange={1}
           size="xs"
           color="brightSun.4"
           value={value}
@@ -31,6 +41,8 @@ const SearchBar = () => {
             duration: 150,
             timingFunction: "linear",
           }}
+          value={value}
+          onChangeEnd={handleChange}
           onChange={setValue}
         />
       </div>

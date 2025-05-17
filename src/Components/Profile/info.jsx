@@ -1,6 +1,6 @@
 import { useState } from "react";
 import fields from "../../Data/Profile";
-import { ActionIcon } from "@mantine/core";
+import { ActionIcon, NumberInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import {
   IconBriefcase,
@@ -27,6 +27,7 @@ const Info = () => {
         jobTitle: profile.jobTitle,
         company: profile.company,
         location: profile.location,
+        totalExp: profile.totalExp,
       });
     } else {
       setEdit(false);
@@ -35,7 +36,7 @@ const Info = () => {
 
   const form = useForm({
     mode: "controlled",
-    initialValues: { jobTitle: "", company: "", location: "" },
+    initialValues: { jobTitle: "", company: "", location: "", totalExp: 1 },
   });
 
   const handleSave = () => {
@@ -74,7 +75,19 @@ const Info = () => {
             <SelectInput form={form} name="jobTitle" {...select[0]} />
             <SelectInput form={form} name="company" {...select[1]} />
           </div>
-          <SelectInput form={form} name="location" {...select[2]} />
+          <div className="flex gap-10 [&>*]:w-1/2">
+            <SelectInput form={form} name="location" {...select[2]} />
+            <NumberInput
+              name="totalExp"
+              label="Total Experience"
+              withAsterisk
+              {...form.getInputProps("totalExp")}
+              clampBehavior="strict"
+              hideControls
+              min={1}
+              max={50}
+            />
+          </div>
         </>
       ) : (
         <>
@@ -85,6 +98,10 @@ const Info = () => {
           <div className="text-lg flex gap-1 items-center text-mine-shaft-400">
             <IconMapPin className="h-5 w-5" stroke={1.5} />
             {profile.location}
+          </div>
+          <div className="text-lg flex gap-1 items-center text-mine-shaft-400">
+            <IconBriefcase className="h-5 w-5" stroke={1.5} />
+            Experience: {profile.totalExp} Years
           </div>
         </>
       )}

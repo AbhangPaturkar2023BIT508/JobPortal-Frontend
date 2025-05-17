@@ -9,6 +9,7 @@ const Talents = () => {
   const dispatch = useDispatch();
   const [talents, setTalents] = useState([]);
   const filter = useSelector((state) => state.filter);
+  const sort = useSelector((state) => state.sort);
   const [filteredTalents, setFilteredTalents] = useState([]);
   useEffect(() => {
     dispatch(resetFilter());
@@ -20,6 +21,14 @@ const Talents = () => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    if (sort == "Experience (Low to High)") {
+      setTalents([...talents].sort((a, b) => a.totalExp - b.totalExp));
+    } else if (sort == "Experience (High to Low)") {
+      setTalents([...talents].sort((a, b) => b.totalExp - a.totalExp));
+    }
+  }, [sort]);
 
   useEffect(() => {
     let filterTalents = talents;

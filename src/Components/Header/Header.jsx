@@ -19,7 +19,7 @@ const Header = () => {
       .catch((err) => {
         console.error("Error fetching profile data:", err);
       });
-  });
+  }, [user]);
   const location = useLocation();
   return location.pathname !== "/signup" && location.pathname !== "/login" ? (
     <div className="w-full bg-mine-shaft-950 h-20 flex justify-between font-['poppins'] text-white px-6 items-center">
