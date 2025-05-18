@@ -41,7 +41,6 @@ const SearchBar = () => {
             duration: 150,
             timingFunction: "linear",
           }}
-          value={value}
           onChangeEnd={handleChange}
           onChange={setValue}
         />
