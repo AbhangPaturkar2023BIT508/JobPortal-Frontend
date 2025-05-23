@@ -14,7 +14,7 @@ const NavLinks = () => {
 
   return (
     <div>
-      <div className="flex gap-5 text-mine-shaft-300 h-full items-center">
+      <div className=" bs-mx:!hidden flex gap-5 text-mine-shaft-300 h-full items-center">
         {links.map((link, index) => (
           <div
             key={index}
@@ -24,7 +24,11 @@ const NavLinks = () => {
                 : "border-transparent"
             } border-t-[3px] h-full flex items-center`}
           >
-            <Link key={index} to={link.url}>
+            <Link
+              className="hover:text-bright-sun-400"
+              key={index}
+              to={link.url}
+            >
               {link.name}
             </Link>
           </div>

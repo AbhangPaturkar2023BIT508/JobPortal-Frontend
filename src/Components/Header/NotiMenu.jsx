@@ -1,8 +1,8 @@
 import { Indicator, Menu, Notification, rem } from "@mantine/core";
 import { IconBell, IconCheck } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getNotifications, readNotification } from "../../Services/NotiService";
 
 const NotiMenu = () => {

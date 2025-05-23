@@ -13,12 +13,14 @@ import PostedJobPage from "./PostedJobPage";
 import JobHistoryPage from "./JobHistoryPage";
 import SignUpPage from "./SignUpPage";
 import ProfilePage from "./ProfilePage";
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+// import { useSelector } from "react-redux";
+// import { Navigate } from "react-router-dom";
 import TalentProfilePage from "./TalentProfilePage";
+import ProtectedRoute from "../Services/ProtectedRoute";
+import PublicRoute from "../Services/PublicRoute";
 
 const AppRoutes = () => {
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
   return (
     <BrowserRouter>
       <div className="relative">
@@ -30,16 +32,45 @@ const AppRoutes = () => {
           <Route path="/jobs/:id" element={<JobDescriptionPage />} />
           <Route path="/apply-job/:id" element={<ApplyJobPage />} />
           <Route path="/talent-profile/:id" element={<TalentProfilePage />} />
-          <Route path="/post-job/:id" element={<PostJobPage />} />
-          <Route path="/posted-job/:id" element={<PostedJobPage />} />
-          <Route path="/job-history" element={<JobHistoryPage />} />
+          <Route
+            path="/post-job/:id"
+            element={
+              <ProtectedRoute allowedRoles={["EMPLOYER"]}>
+                <PostJobPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/posted-job/:id"
+            element={
+              <ProtectedRoute allowedRoles={["EMPLOYER"]}>
+                <PostedJobPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/job-history"
+            element={
+              <ProtectedRoute allowedRoles={["APPLICANT"]}>
+                <JobHistoryPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/signup"
-            element={user ? <Navigate to="/" /> : <SignUpPage />}
+            element={
+              <PublicRoute>
+                <SignUpPage />
+              </PublicRoute>
+            }
           />
           <Route
             path="/login"
-            element={user ? <Navigate to="/" /> : <SignUpPage />}
+            element={
+              <PublicRoute>
+                <SignUpPage />
+              </PublicRoute>
+            }
           />
           <Route path="/profile" element={<ProfilePage />} />
 

@@ -8,7 +8,7 @@ import {
 import { IconAt, IconLock } from "@tabler/icons-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../Services/UserService";
+import { loginUser } from "../../Services/AuthService";
 import { loginValidation } from "../../Services/FormValidation";
 import { useDisclosure } from "@mantine/hooks";
 import ResetPassword from "./ResetPassword";
@@ -18,6 +18,9 @@ import {
   errorNotification,
   successNotification,
 } from "../../Services/NotificationService";
+import { jwtDecode } from "jwt-decode";
+
+import { setJwt } from "../../Slices/JwtSlice";
 
 const form = {
   email: "",
@@ -53,15 +56,18 @@ const Login = () => {
             "Login Successful",
             "Redirecting to home page..."
           );
+          dispatch(setJwt(res.jwt));
+          const decoded = jwtDecode(res.jwt);
+          console.log(decoded);
+          dispatch(setUser({ ...decoded, email: decoded.sub }));
           setTimeout(() => {
             setLoading(false);
-            dispatch(setUser(res)); // Ensure `res` is valid
             navigate("/");
           }, 4000);
         })
         .catch((err) => {
           setLoading(false);
-          errorNotification("Login Failed", err.response.data.errorMessage);
+          errorNotification("Login Failed", err.response?.data?.errorMessage);
         });
     }
   };

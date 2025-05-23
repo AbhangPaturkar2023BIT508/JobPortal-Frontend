@@ -32,7 +32,7 @@ const JobDescriptionPage = () => {
           Back
         </Button>
       </Link>
-      <div className="flex gap-5 justify-around">
+      <div className="flex bs-mx:flex-wrap gap-5 justify-around">
         <JobDesc {...job} />
         <RecommendedJobs />
       </div>

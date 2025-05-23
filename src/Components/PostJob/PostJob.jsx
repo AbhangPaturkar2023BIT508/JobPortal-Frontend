@@ -11,6 +11,7 @@ import {
   successNotification,
 } from "../../Services/NotificationService";
 import { useSelector } from "react-redux";
+import { useMediaQuery } from "@mantine/hooks";
 
 const PostJob = () => {
   const { id } = useParams();
@@ -18,6 +19,7 @@ const PostJob = () => {
   const user = useSelector((state) => state.user);
   const Navigate = useNavigate();
   const select = fields;
+
   useEffect(() => {
     window.scrollTo(0, 0);
     if (id !== "0") {
@@ -87,18 +89,18 @@ const PostJob = () => {
       });
   };
   return (
-    <div className="w-4/5 mx-auto">
+    <div className="px-16 bs-mx:px-10 md-mx:px-5 py-5">
       <div className="text-2xl font-semibold mb-5">Post Job</div>
       <div className="flex flex-col gap-5">
-        <div className="flex gap-10 [&>*]:w-1/2">
+        <div className="flex gap-10 md-mx:gap-5 [&>*]:w-1/2 sm-mx:[&>*]:w-full sm-mx:flex-wrap">
           <SelectInput form={form} name="jobTitle" {...select[0]} />
           <SelectInput form={form} name="company" {...select[1]} />
         </div>
-        <div className="flex gap-10 [&>*]:w-1/2">
+        <div className="flex gap-10  md-mx:gap-5 [&>*]:w-1/2 sm-mx:[&>*]:w-full sm-mx:flex-wrap">
           <SelectInput form={form} name="experience" {...select[2]} />
           <SelectInput form={form} name="jobType" {...select[3]} />
         </div>
-        <div className="flex gap-10 [&>*]:w-1/2">
+        <div className="flex gap-10  md-mx:gap-5 [&>*]:w-1/2 sm-mx:[&>*]:w-full sm-mx:flex-wrap">
           <SelectInput form={form} name="location" {...select[4]} />
           <NumberInput
             {...form.getInputProps("packageOffered")}
