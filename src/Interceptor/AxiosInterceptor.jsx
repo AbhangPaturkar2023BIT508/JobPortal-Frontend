@@ -23,6 +23,7 @@ export const setupResponseInterceptor = (navigate) => {
     (response) => response,
     (error) => {
       if (error.response && error.response.status === 401) {
+        console.error("Unauthorized access - redirecting to login");
         navigateToLogin(navigate);
       }
       return Promise.reject(error);

@@ -99,7 +99,12 @@ const ResetPassword = (props) => {
       });
   };
   return (
-    <Modal opened={props.opened} onClose={props.close} title="Reset Password">
+    <Modal
+      opened={props.opened}
+      onClose={props.close}
+      title="Reset Password"
+      centered
+    >
       <div className="flex flex-col gap-6">
         <TextInput
           value={email}

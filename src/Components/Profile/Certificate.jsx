@@ -4,8 +4,10 @@ import CertiCard from "./CertiCard";
 import CertiInput from "./CertiInput";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useMediaQuery } from "@mantine/hooks";
 
 const Certificate = () => {
+  const matches = useMediaQuery("(min-width: 475px)");
   const profile = useSelector((state) => state.profile);
   const [edit, setEdit] = useState(false);
   const [addCerti, setAddCerti] = useState(false);
@@ -23,7 +25,7 @@ const Certificate = () => {
               onClick={() => {
                 setAddCerti(true);
               }}
-              size="lg"
+              size={matches ? "lg" : "md"}
               color="brightSun.4"
               variant="subtle"
             >
@@ -32,7 +34,7 @@ const Certificate = () => {
 
             <ActionIcon
               onClick={handleClick}
-              size="lg"
+              size={matches ? "lg" : "md"}
               color={edit ? "red.8" : "brightSun.4"}
               variant="subtle"
             >

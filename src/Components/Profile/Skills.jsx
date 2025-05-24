@@ -4,8 +4,10 @@ import { changeProfile } from "../../Slices/ProfileSlice";
 import { successNotification } from "../../Services/NotificationService";
 import { ActionIcon, TagsInput } from "@mantine/core";
 import { IconCheck, IconPencil, IconX } from "@tabler/icons-react";
+import { useMediaQuery } from "@mantine/hooks";
 
 const Skills = () => {
+  const matches = useMediaQuery("(min-width: 475px)");
   const dispatch = useDispatch();
   const [edit, setEdit] = useState(false);
   const profile = useSelector((state) => state.profile);
@@ -31,12 +33,12 @@ const Skills = () => {
         Skills
         <div>
           {edit && (
-            <ActionIcon size="lg" color="green.8" variant="subtle">
+            <ActionIcon size={matches ? "lg" : "md"} color="green.8" variant="subtle">
               <IconCheck onClick={handleSave} className="h-4/5 w-4/5" />
             </ActionIcon>
           )}
           <ActionIcon
-            size="lg"
+            size={matches ? "lg" : "md"}
             color={edit ? "red.8" : "brightSun.4"}
             variant="subtle"
           >

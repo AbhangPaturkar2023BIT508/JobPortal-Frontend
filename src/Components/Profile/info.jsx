@@ -13,8 +13,10 @@ import SelectInput from "./SelectInput";
 import { useDispatch, useSelector } from "react-redux";
 import { changeProfile } from "../../Slices/ProfileSlice";
 import { successNotification } from "../../Services/NotificationService";
+import { useMediaQuery } from "@mantine/hooks";
 
 const Info = () => {
+  const matches = useMediaQuery("(min-width: 475px)");
   const select = fields;
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -48,16 +50,20 @@ const Info = () => {
 
   return (
     <>
-      <div className="text-3xl font-semibold flex justify-between">
+      <div className="text-3xl xs-mx:text-2xl  font-semibold flex justify-between">
         {user?.name}
         <div>
           {edit && (
-            <ActionIcon size="lg" color="green.8" variant="subtle">
+            <ActionIcon
+              size={matches ? "lg" : "md"}
+              color="green.8"
+              variant="subtle"
+            >
               <IconCheck onClick={handleSave} className="h-4/5 w-4/5" />
             </ActionIcon>
           )}
           <ActionIcon
-            size="lg"
+            size={matches ? "lg" : "md"}
             color={edit ? "red.8" : "brightSun.4"}
             variant="subtle"
           >
@@ -71,11 +77,11 @@ const Info = () => {
       </div>
       {edit ? (
         <>
-          <div className="flex gap-10 [&>*]:w-1/2">
+          <div className="flex gap-10 [&>*]:w-1/2 xs-mx:flex-wrap xs-mx:[&>*]:w-full xs-mx:gap-0">
             <SelectInput form={form} name="jobTitle" {...select[0]} />
             <SelectInput form={form} name="company" {...select[1]} />
           </div>
-          <div className="flex gap-10 [&>*]:w-1/2">
+          <div className="flex gap-10 [&>*]:w-1/2 xs-mx:flex-wrap xs-mx:[&>*]:w-full xs-mx:gap-0">
             <SelectInput form={form} name="location" {...select[2]} />
             <NumberInput
               name="totalExp"
@@ -91,15 +97,15 @@ const Info = () => {
         </>
       ) : (
         <>
-          <div className="text-xl flex gap-1 items-center">
+          <div className="text-xl xs-mx:text-base flex gap-1 items-center">
             <IconBriefcase className="h-5 w-5" stroke={1.5} />
             {profile.jobTitle} &bull; {profile.company}
           </div>
-          <div className="text-lg flex gap-1 items-center text-mine-shaft-400">
+          <div className="text-lg xs-mx:text-base flex gap-1 items-center text-mine-shaft-400">
             <IconMapPin className="h-5 w-5" stroke={1.5} />
             {profile.location}
           </div>
-          <div className="text-lg flex gap-1 items-center text-mine-shaft-400">
+          <div className="text-lg xs-mx:text-base flex gap-1 items-center text-mine-shaft-400">
             <IconBriefcase className="h-5 w-5" stroke={1.5} />
             Experience: {profile.totalExp} Years
           </div>

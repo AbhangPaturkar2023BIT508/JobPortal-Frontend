@@ -50,28 +50,28 @@ const Jobs = () => {
     if (filter["Job Title"] && filter["Job Title"].length > 0) {
       filterJobs = filterJobs.filter((job) =>
         filter["Job Title"]?.some((title) =>
-          job.jobTitle.toLowerCase().includes(title.toLowerCase())
+          job?.jobTitle?.toLowerCase().includes(title?.toLowerCase())
         )
       );
     }
     if (filter.Location && filter.Location.length > 0) {
       filterJobs = filterJobs.filter((job) =>
         filter.Location?.some((location) =>
-          job.location.toLowerCase().includes(location.toLowerCase())
+          job?.location?.toLowerCase().includes(location?.toLowerCase())
         )
       );
     }
     if (filter.Experience && filter.Experience.length > 0) {
       filterJobs = filterJobs.filter((job) =>
         filter.Experience?.some((exp) =>
-          job.experience?.toLowerCase().includes(exp.toLowerCase())
+          job?.experience?.toLowerCase().includes(exp?.toLowerCase())
         )
       );
     }
     if (filter["Job Type"] && filter["Job Type"].length > 0) {
       filterJobs = filterJobs.filter((job) =>
         filter["Job Type"]?.some((type) =>
-          job.jobType.toLowerCase().includes(type.toLowerCase())
+          job?.jobType?.toLowerCase().includes(type?.toLowerCase())
         )
       );
     }

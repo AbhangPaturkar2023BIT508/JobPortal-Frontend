@@ -78,11 +78,11 @@ const ExpInput = (props) => {
     );
   };
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-1">
       <div className="text-lg font-semibold">
         {props.add ? "Add " : "Edit "}Experience
       </div>
-      <div className="flex gap-10 [&>*]:w-1/2">
+      <div className="flex gap-10 [&>*]:w-1/2 xs-mx:flex-wrap xs-mx:[&>*]:w-full xs-mx:gap-1">
         <SelectInput form={form} name="title" {...select[0]} />
         <SelectInput form={form} name="company" {...select[1]} />
       </div>
@@ -95,7 +95,7 @@ const ExpInput = (props) => {
         label="Summary"
         placeholder="Enter Summary..."
       />
-      <div className="flex gap-10 [&>*]:w-1/2">
+      <div className="flex gap-10 [&>*]:w-1/2 xs-mx:flex-wrap xs-mx:[&>*]:w-full xs-mx:gap-1">
         <MonthPickerInput
           {...form.getInputProps("startsDate")}
           withAsterisk
@@ -114,6 +114,7 @@ const ExpInput = (props) => {
         />
       </div>
       <Checkbox
+        my={10}
         checked={form.getValues().working}
         onChange={(e) => form.setFieldValue("working", e.currentTarget.checked)}
         autoContrast

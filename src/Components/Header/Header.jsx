@@ -30,53 +30,63 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const didNavigateRef = useRef(false);
+  const location = useLocation();
 
   useEffect(() => {
     setupResponseInterceptor(navigate);
   }, [navigate]);
 
-  useEffect(() => {
-    if (!token) {
-      if (!didNavigateRef.current) {
-        didNavigateRef.current = true;
-        dispatch(removeUser());
-        navigate("/login");
-      }
-      return;
-    }
-
-    try {
-      const decoded = jwtDecode(localStorage.getItem("token") || "");
-      dispatch(setUser({ ...decoded, email: decoded.username }));
-    } catch (err) {
-      if (!didNavigateRef.current) {
-        didNavigateRef.current = true;
-        localStorage.removeItem("token");
-        dispatch(removeUser());
-        navigate("/login");
-      }
-      return;
-    }
-
-    getProfile(user?.id)
-      .then((data) => dispatch(setProfile(data)))
-      .catch((err) => console.error("Error fetching profile data:", err));
-  }, [token, navigate]);
-
   // useEffect(() => {
-  //   if (token !== "") {
+  //   if (!token) {
+  //     if (!didNavigateRef.current) {
+  //       didNavigateRef.current = true;
+  //       dispatch(removeUser());
+  //       navigate("/login");
+  //     }
+  //     return;
+  //   }
+
+  //   try {
   //     const decoded = jwtDecode(localStorage.getItem("token") || "");
   //     dispatch(setUser({ ...decoded, email: decoded.username }));
+  //   } catch (err) {
+  //     if (!didNavigateRef.current) {
+  //       didNavigateRef.current = true;
+  //       localStorage.removeItem("token");
+  //       dispatch(removeUser());
+  //       navigate("/login");
+  //     }
+  //     return;
   //   }
-  //   getProfile(user?.id)
-  //     .then((data) => {
-  //       dispatch(setProfile(data));
-  //     })
-  //     .catch((err) => {
-  //       console.error("Error fetching profile data:", err);
-  //     });
+  //     getProfile(user?.id)
+  //       .then((data) => dispatch(setProfile(data)))
+  //       .catch((err) => console.error("Error fetching profile data:", err));
   // }, [token, navigate]);
-  const location = useLocation();
+
+  useEffect(() => {
+    if (token !== "") {
+      try {
+        const decoded = jwtDecode(localStorage.getItem("token") || "");
+        dispatch(setUser({ ...decoded, email: decoded.username }));
+      } catch (err) {
+        if (!didNavigateRef.current) {
+          didNavigateRef.current = true;
+          localStorage.removeItem("token");
+          dispatch(removeUser());
+          navigate("/login");
+        }
+      }
+    }
+    if (user?.profileId)
+      getProfile(user?.id)
+        .then((data) => {
+          dispatch(setProfile(data));
+        })
+        .catch((err) => {
+          console.error("Error fetching profile data:", err);
+        });
+  }, [token, navigate]);
+
   return location.pathname !== "/signup" && location.pathname !== "/login" ? (
     <div className="w-full bg-mine-shaft-950 h-20 flex justify-between font-['poppins'] text-white px-6 items-center">
       <div className="flex gap-1 items-center text-bright-sun-400 ">

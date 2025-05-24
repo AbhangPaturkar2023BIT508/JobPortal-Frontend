@@ -14,6 +14,7 @@ const loginUser = async (login) => {
 
 const navigateToLogin = (navigate) => {
   localStorage.removeItem("token");
+  localStorage.removeItem("user");
   removeUser();
   navigate("/login");
 };

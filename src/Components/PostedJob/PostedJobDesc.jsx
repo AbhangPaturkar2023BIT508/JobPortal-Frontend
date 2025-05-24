@@ -30,16 +30,16 @@ const PostedJobDesc = (props) => {
     handleTabChange("overview");
   }, [props]);
   return (
-    <div className="mt-5 w-3/4 px-5">
+    <div className="w-3/4 p-5 md-mx:p-0 md-mx:w-full">
       {props.jobTitle ? (
         <>
-          <div className="text-2xl font-semibold flex items-center ">
+          <div className="text-2xl xs-mx:text-xl font-semibold flex items-center ">
             {props.jobTitle}
             <Badge variant="light" ml="sm" color="brightSun.4" size="sm">
               {props.jobStatus}
             </Badge>
           </div>
-          <div className="font-medium text-mine-shaft-300 mb-5">
+          <div className="font-medium xs-mx:text-sm text-mine-shaft-300 mb-5">
             {props.location}
           </div>
           <div>
@@ -49,7 +49,10 @@ const PostedJobDesc = (props) => {
               value={tab}
               onChange={handleTabChange}
             >
-              <Tabs.List className="[&_button]:!text-lg font-semibold mb-5 [&_button[data-active='true']]:text-bright-sun-400">
+              <Tabs.List
+                className="[&_button]:!text-xl  sm-mx:[&_button]:!text-lg xs-mx:[&_button]:!text-base xsm-mx:[&_button]:!text-sm xs-mx:[&_button]:!px-1.5
+          xs-mx:[&_button]:!py-1 font-semibold mb-5 xs-mx:font-medium [&_button[data-active='true']]:text-bright-sun-400"
+              >
                 <Tabs.Tab value="overview">Overview</Tabs.Tab>
                 <Tabs.Tab value="applicants">Applicants</Tabs.Tab>
                 <Tabs.Tab value="invited">Invited</Tabs.Tab>
@@ -61,8 +64,7 @@ const PostedJobDesc = (props) => {
                 <JobDesc
                   {...props}
                   edit={true}
-                  closed={props.jobStatus === 
-                  "CLOSED"}
+                  closed={props.jobStatus === "CLOSED"}
                 />
               </Tabs.Panel>
               <Tabs.Panel value="applicants">

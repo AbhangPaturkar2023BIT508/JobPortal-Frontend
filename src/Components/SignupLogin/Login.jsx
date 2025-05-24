@@ -80,7 +80,7 @@ const Login = () => {
         overlayProps={{ radius: "sm", blur: 2 }}
         loaderProps={{ color: "brightSun.4", type: "bars" }}
       />
-      <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
+      <div className="w-1/2 sm-mx:w-full px-20 bs-mx:px-10 md-mx:px-5  flex flex-col justify-center gap-3">
         <div className="text-2xl font-semibold">Login</div>
         <TextInput
           value={data.email}
@@ -117,7 +117,7 @@ const Login = () => {
         >
           Login
         </Button>
-        <div className="mx-auto">
+        <div className="mx-auto items-center sm-mx:text-sm xs-mx:text-xs">
           Don't Have an account?
           <span
             onClick={() => {
@@ -130,7 +130,7 @@ const Login = () => {
           </span>
         </div>
         <div
-          className="text-bright-sun-400 hover:underline cursor-pointer text-center"
+          className="text-bright-sun-400  sm-mx:text-sm xs-mx:text-xs hover:underline cursor-pointer text-center"
           onClick={open}
         >
           Forget Password?

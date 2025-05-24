@@ -7,13 +7,17 @@ import About from "./About";
 import Skills from "./Skills";
 import Experience from "./Experience";
 import Certificate from "./Certificate";
-import { useHover } from "@mantine/hooks";
+import { useHover, useMediaQuery } from "@mantine/hooks";
 import { IconEdit } from "@tabler/icons-react";
-import { successNotification, errorNotification } from "../../Services/NotificationService";
+import {
+  successNotification,
+  errorNotification,
+} from "../../Services/NotificationService";
 import { updateProfile } from "../../Services/ProfileService";
 import { getBase64 } from "../../Services/Utilities";
 
 const Profile = () => {
+  const matches = useMediaQuery("(min-width: 475px)");
   const profile = useSelector((state) => state.profile);
   const { hovered, ref } = useHover();
   const dispatch = useDispatch();
@@ -39,15 +43,20 @@ const Profile = () => {
   };
 
   return (
-    <div className="w-4/5 mx-auto">
-      <div className="relative">
-        <img className="rounded-t-2xl" src="/Profile/banner.jpg" alt="" />
+    <div className="w-4/5 lg-mx:w-full mx-auto">
+      {/* <div className=""> */}
+      <div className="relative px-5">
+        <img
+          className="rounded-t-2xl xs-mx:h-28"
+          src="/Profile/banner.jpg"
+          alt=""
+        />
         <div
           ref={ref}
-          className="absolute flex items-center justify-center -bottom-1/3 left-3"
+          className="absolute flex items-center justify-center -bottom-1/3 md-mx:-bottom-10 sm-mx:-bottom-16 left-8"
         >
           <Avatar
-            className="rounded-full !h-48 !w-48 border-mine-shaft-950 border-8 absolute"
+            className="rounded-full !h-48 !w-48 md-mx:!w-40 md-mx:!h-40 sm-mx:!w-36 sm-mx:!h-36 xs-mx:!w-32 xs-mx:!h-32 border-mine-shaft-950 border-8 absolute"
             src={
               profile.picture
                 ? `data:image/jpeg;base64, ${profile.picture}`
@@ -74,6 +83,7 @@ const Profile = () => {
             />
           )}
         </div>
+        {/* </div> */}
       </div>
       <div className="px-3 mt-20">
         <Info />
