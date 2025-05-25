@@ -2,7 +2,8 @@ import axios from "axios";
 import { navigateToLogin } from "../Services/AuthService";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8080",
+  // baseURL: "http://localhost:8080",
+  baseURL: "https://jobportal-backend-dnyd.onrender.com",
 });
 
 axiosInstance.interceptors.request.use(
