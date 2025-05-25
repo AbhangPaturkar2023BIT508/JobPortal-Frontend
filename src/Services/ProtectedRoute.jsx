@@ -8,17 +8,17 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
     return <Navigate to="/login" />;
   }
 
-  // let decodedToken;
-  // try {
-  //   decodedToken = jwtDecode(token);
-  // } catch (e) {
-  //   // If token is invalid, redirect to login
-  //   return <Navigate to="/unauthorized" />;
-  // }
+  let decodedToken;
+  try {
+    decodedToken = jwtDecode(token);
+  } catch (e) {
+    // If token is invalid, redirect to login
+    return <Navigate to="/unauthorized" />;
+  }
 
-  // if (allowedRoles && !allowedRoles.includes(decodedToken.accountType)) {
-  //   return <Navigate to="/unauthorized" />;
-  // }
+  if (allowedRoles && !allowedRoles.includes(decodedToken.accountType)) {
+    return <Navigate to="/unauthorized" />;
+  }
 
   return children;
 };
