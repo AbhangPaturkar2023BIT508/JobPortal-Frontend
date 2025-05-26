@@ -38,9 +38,9 @@ const DreamJob = () => {
               10K+ got job
             </div>
             <Avatar.Group>
-              <Avatar src="/Avatar.png" />
-              <Avatar src="/Avatar1.png" />
-              <Avatar src="/Avatar2.png" />
+              <Avatar src="/avatar.png" />
+              <Avatar src="/avatar1.png" />
+              <Avatar src="/avatar2.png" />
               <Avatar>+9K</Avatar>
             </Avatar.Group>
           </div>
