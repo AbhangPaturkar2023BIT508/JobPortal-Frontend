@@ -13,7 +13,7 @@ const Working = () => {
       </div>
       <div className="flex px-16 bs-mx:px-10 md-mx:px-5 gap-2 justify-between items-center md-mx:flex-col ">
         <div className="relative">
-          <img className="w-[30rem]" src="/working/Girl.png" alt="girl" />
+          <img className="w-[30rem]" src="/Working/Girl.png" alt="girl" />
           <div className="w-36 xs-mx:w-28 top-[15%] right-0 absolute flex flex-col items-center gap-1 border border-bright-sun-400 rounded-xl py-3 px-1 backdrop-blur-md">
             <Avatar
               className="!h-16 !w-16 xs-mx:!h-12 xs-mx:!w-12 md-mx:!h-10 md-mx:!w-10"
@@ -32,7 +32,7 @@ const Working = () => {
               <div className="p-2.5 bg-bright-sun-300 rounded-full">
                 <img
                   className="h-12 w-12 md-mx:h-9 md-mx:w-9 sm-mx:h-7 sm-mx:w-7"
-                  src={`/working/${item.name}.png`}
+                  src={`/Working/${item.name}.png`}
                   alt={item.name}
                 />
               </div>
